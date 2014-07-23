@@ -8,7 +8,7 @@
  * Controller of the testApp
  */
 angular.module('testApp')
-  .controller('AboutCtrl', function ($scope) {
+  .controller('PizzaCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
