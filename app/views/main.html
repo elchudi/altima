@@ -4,7 +4,8 @@
     Select your pizza!
   </p>
     <ul class="list-group">
-      <li ng-repeat="pizza in pizzas"class="list-group-item"><a href=#/pizza>{{pizza.name}}</a></li>
+      <li ng-repeat="pizza in pizzas"class="list-group-item"><a href=#/pizza?pizzaId={{pizza._id}}>{{pizza.name}}</a></li>
+        
     </ul>
   <p><a class="btn btn-lg btn-success" ng-href="#/pizza">Create a new Pizza!!</a></p>
     

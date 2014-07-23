@@ -1,0 +1,19 @@
+here goes the pizza
+<h2>Pizza Name</h2>
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Pizza Name</label>
+    <div class="col-sm-10">
+      <input type="text" ng-model="pizza.name" class="form-control" ng-enter="updatePizza()" id="inputEmail3" placeholder="Pizza Name">
+    </div>
+  </div>
+<h2> Add more ingredients</h2>
+<div class="btn-group-vertical">
+  <button type="button" class="btn btn-default" ng-repeat="ingredient in ingredients" ng-click="addIngredient(ingredient)">Add {{ingredient.name}}</button>
+
+</div>
+
+<h2> Currently in the pizza</h2>
+<div class="btn-group-vertical">
+  <button type="button" class="btn btn-default" ng-repeat="ingredient in pizza.ingredients track by $index " ng-click="removeIngredient(ingredient)">Remove {{ingredient}}</button>
+
+</div>

@@ -28,7 +28,7 @@ angular.module('testApp')
         var resource = $resource(urlApi, { }, {}  );
         return resource;
     }])
-  .controller('PizzaCtrl', function ($scope, $routeParams, Pizzas, Ingredients, $location) {
+  .controller('PizzaCtrl', function ($scope, $routeParams, Pizzas, Ingredients) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -36,35 +36,25 @@ angular.module('testApp')
     ];
     console.log('routeParams');
     console.log($routeParams);
-    var createPizza = function(){
-        //TODO see how to make the update not reload the model
-        $scope.pizza.$save({}, function(resp){
-            $location.path('/');
-        });
-    
-    }
     var getPizza = function(){
         if($routeParams && $routeParams.pizzaId){
-            Pizzas.get({_id:$routeParams.pizzaId},function(resp){
+            Pizza.get({_id:$routeParams.pizzaId},function(resp){
                 console.log('pizza');
                 console.log(resp);
                 $scope.pizza = resp;
             });
-        }else{
-            $scope.pizza =  new Pizzas({});
-            $scope.updatePizza = createPizza;
         }
     };
 
-    var updatePizza = function(){
-        //TODO see how to make the update not reload the model
-        $scope.pizza.$update({_id:$scope.pizza._id}, function(resp){
+    var savePizza = function(){
+        //TODO see how to make the save not reload the model
+        $scope.pizza.$save({_id:$scope.pizza._id}, function(resp){
             getPizza();
         });
     
     }
     
-    $scope.updatePizza = updatePizza;
+    $scope.savePizza = savePizza;
 
     getPizza();
     Ingredients.query(function(resp){
@@ -75,17 +65,6 @@ angular.module('testApp')
         $scope.pizza.ingredients = $scope.pizza.ingredients || {};
         $scope.pizza.ingredients.push(ing.name);
         var keepReference = $scope.pizza;
-        updatePizza();
+        savePizza();
     }
-
-    $scope.removeIngredient = function(ing){
-        var ingredients = $scope.pizza.ingredients;
-        for (var i=ingredients.length-1; i>=0; i--) {
-            if (ingredients[i] === ing) {
-                ingredients.splice(i, 1);
-                break;       //<-- Uncomment  if only the first term has to be removed
-            }
-        }
-        updatePizza();
-    };
   });
